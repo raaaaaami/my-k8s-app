@@ -12,12 +12,12 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t raami/my-k8s-app:dev .
+            docker build -t raami/my-k8s-app:qa .
       - run:
           name: Push Docker Image
           command: |
             docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-            docker push raami/my-k8s-app:dev
+            docker push raami/my-k8s-app:qa
   deploy:
     docker:
       - image: python:3.8
@@ -32,4 +32,4 @@ jobs:
       - run:
           name: Deploy to Kubernetes
           command: |
-            kubectl set image deployment/my-k8s-deployment my-container=raami/my-k8s-app:dev
+            kubectl set image deployment/my-k8s-deployment my-container=raami/my-k8s-app:qa
